@@ -1,5 +1,11 @@
+fly-promo-kafka.iml
 poc-fly-promo-kafka.iml
 
 .idea
 volume
 target
+*.iml
+
+**/.idea
+**/target
+**/*.iml
