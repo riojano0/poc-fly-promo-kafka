@@ -1,4 +1,4 @@
-package io.github.riojano0.flypromokafka.core.model;
+package io.github.riojano0.flypromokafka.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

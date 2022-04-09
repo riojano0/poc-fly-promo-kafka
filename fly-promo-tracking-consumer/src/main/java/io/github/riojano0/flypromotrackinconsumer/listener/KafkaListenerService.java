@@ -1,6 +1,6 @@
 package io.github.riojano0.flypromotrackinconsumer.listener;
 
-import io.github.riojano0.flypromokafka.core.model.FlyPromo;
+import io.github.riojano0.flypromokafka.model.FlyPromo;
 import io.github.riojano0.flypromotrackinconsumer.service.FlyPromoService;
 
 import org.springframework.beans.factory.annotation.Autowired;

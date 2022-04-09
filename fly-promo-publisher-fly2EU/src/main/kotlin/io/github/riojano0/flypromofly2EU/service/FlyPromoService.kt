@@ -1,7 +1,7 @@
 package io.github.riojano0.flypromofly2EU.service
 
-import io.github.riojano0.flypromokafka.core.model.Country
-import io.github.riojano0.flypromokafka.core.model.FlyPromo
+import io.github.riojano0.flypromokafka.model.Country
+import io.github.riojano0.flypromokafka.model.FlyPromo
 import io.github.riojano0.flypromofly2EU.model.CountryProvider
 import io.github.riojano0.flypromofly2EU.model.Fly2EUFlyPromo
 import lombok.extern.slf4j.Slf4j

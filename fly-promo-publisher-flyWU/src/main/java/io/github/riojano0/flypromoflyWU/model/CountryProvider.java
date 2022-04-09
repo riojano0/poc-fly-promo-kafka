@@ -1,6 +1,6 @@
 package io.github.riojano0.flypromoflyWU.model;
 
-import io.github.riojano0.flypromokafka.core.model.Country;
+import io.github.riojano0.flypromokafka.model.Country;
 
 public enum CountryProvider implements Country {
 

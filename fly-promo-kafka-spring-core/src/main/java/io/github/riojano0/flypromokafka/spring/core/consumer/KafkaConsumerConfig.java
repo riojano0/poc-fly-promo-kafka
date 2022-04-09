@@ -1,9 +1,9 @@
-package io.github.riojano0.flypromokafka.core.consumer;
+package io.github.riojano0.flypromokafka.spring.core.consumer;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import io.github.riojano0.flypromokafka.core.model.FlyPromo;
+import io.github.riojano0.flypromokafka.model.FlyPromo;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

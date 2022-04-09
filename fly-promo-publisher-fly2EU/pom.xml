@@ -26,7 +26,7 @@
 
         <dependency>
             <groupId>io.github.riojano0</groupId>
-            <artifactId>fly-promo-kafka-core</artifactId>
+            <artifactId>fly-promo-kafka-spring-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

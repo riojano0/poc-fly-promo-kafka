@@ -2,11 +2,12 @@
 
 This is a POC for understand Kafka implementation with springboot and organize a project with submodules where:
 
-- fly-promo-kafka-core: Is the common configurations or models that are needed to use by the apps
+- fly-promo-kafka-model: Is the model classes use on Kafka
+- fly-promo-kafka-spring-core: Is the common spring configurations that are needed to use by the spring apps
 - fly-promo-publisher-flyWU: Simulate a fly-promo provider called "Fly With Us" that will inform to Kafka the new promotions
 - fly-promo-publisher-fly2EU: (in **Kotlin**) Simulate a fly-promo provider called "Fly To Europe" that will inform to Kafka the new promotions
 - fly-promo-tracking-consumer: General consumer that will bring a websocket after listen the kafka topic of fly-promo
-- fly-promo-preview-page: vert.x httpserver use for bring the static resources, in this case a webpage that connect to the websocket
+- fly-promo-preview-page: **vert.x** httpserver use for bring the static resources, in this case a webpage that connect to the websocket
 
 ![Example](example.gif)
 

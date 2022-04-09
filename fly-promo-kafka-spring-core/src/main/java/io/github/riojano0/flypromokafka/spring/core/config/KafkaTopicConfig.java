@@ -1,4 +1,4 @@
-package io.github.riojano0.flypromokafka.core.config;
+package io.github.riojano0.flypromokafka.spring.core.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +38,5 @@ public class KafkaTopicConfig {
                   .partitions(1)
                   .replicas(1).build();
    }
-
 
 }

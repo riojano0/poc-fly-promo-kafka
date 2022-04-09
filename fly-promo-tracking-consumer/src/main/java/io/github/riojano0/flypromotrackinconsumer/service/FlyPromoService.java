@@ -3,7 +3,7 @@ package io.github.riojano0.flypromotrackinconsumer.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.riojano0.flypromokafka.core.model.FlyPromo;
+import io.github.riojano0.flypromokafka.model.FlyPromo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

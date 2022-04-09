@@ -1,9 +1,8 @@
-package io.github.riojano0.flypromokafka.core.model;
+package io.github.riojano0.flypromokafka.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 public interface Country {
 

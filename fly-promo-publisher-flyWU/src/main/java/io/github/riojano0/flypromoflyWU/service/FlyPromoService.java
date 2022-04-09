@@ -9,8 +9,8 @@ import java.util.Random;
 
 import io.github.riojano0.flypromoflyWU.model.CountryProvider;
 import io.github.riojano0.flypromoflyWU.model.FlyWuFlyPromo;
-import io.github.riojano0.flypromokafka.core.model.Country;
-import io.github.riojano0.flypromokafka.core.model.FlyPromo;
+import io.github.riojano0.flypromokafka.model.Country;
+import io.github.riojano0.flypromokafka.model.FlyPromo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

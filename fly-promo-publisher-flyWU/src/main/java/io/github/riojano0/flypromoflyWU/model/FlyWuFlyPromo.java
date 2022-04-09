@@ -2,7 +2,7 @@ package io.github.riojano0.flypromoflyWU.model;
 
 import java.util.UUID;
 
-import io.github.riojano0.flypromokafka.core.model.FlyPromo;
+import io.github.riojano0.flypromokafka.model.FlyPromo;
 
 public class FlyWuFlyPromo extends FlyPromo {
 

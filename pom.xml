@@ -17,7 +17,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>fly-promo-kafka-core</module>
+        <module>fly-promo-kafka-model</module>
+        <module>fly-promo-kafka-spring-core</module>
         <module>fly-promo-publisher-flyWU</module>
         <module>fly-promo-publisher-fly2EU</module>
         <module>fly-promo-tracking-consumer</module>

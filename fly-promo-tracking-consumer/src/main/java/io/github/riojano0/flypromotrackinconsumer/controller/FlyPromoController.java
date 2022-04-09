@@ -2,7 +2,7 @@ package io.github.riojano0.flypromotrackinconsumer.controller;
 
 import java.util.List;
 
-import io.github.riojano0.flypromokafka.core.model.FlyPromo;
+import io.github.riojano0.flypromokafka.model.FlyPromo;
 import io.github.riojano0.flypromotrackinconsumer.service.FlyPromoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
