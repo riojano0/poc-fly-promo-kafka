@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fly-Promo Viewer</title>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
+  <style>
+    .fly-promo {
+        max-width: 100%;
+        transform: scale(0);
+        transition: 0.5s;
+    }
+    .fly-promo.animate {
+        transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+<noscript>
+  <h2 style="color: #ff0000">Seems your browser doesn't support Javascript!
+    Websocket relies on Javascript being enabled. Please enable Javascript and
+    reload this page!</h2>
+</noscript>
+
+
+<div id="main-content" class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table id="fly-promo" class="table table-striped table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th>Provider</th>
+            <th>From Country</th>
+            <th>To Country</th>
+            <th>Original Price</th>
+            <th>Promotional Price</th>
+          </tr>
+        </thead>
+        <tbody id="fly-promo-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  const socketPath = 'http://localhost:8090/channel'
+  let sockJs = null;
+  let stompClient = null;
+  let retryConnect = null;
+
+  const defaultResolver = (data) => {
+      return document.createTextNode(data);
+  }
+
+  const countryResolver = (country) => {
+      return document.createTextNode(country['iso3']);
+  }
+
+  const countriesResolver = (countries) => {
+      const list = document.createElement('ul')
+      countries.forEach((country) => {
+          let listItem = document.createElement('li');
+          listItem.appendChild(countryResolver(country));
+          list.appendChild(listItem);
+      })
+
+      return list;
+  }
+
+  const tableColumns = {
+      'provider' : defaultResolver,
+      'fromCountries': countriesResolver,
+      'toCountry' : countryResolver,
+      'originalPrice': defaultResolver,
+      'promotionalPrice': defaultResolver
+  }
+
+  const showInitialFlyPromos = (flyPromos) => {
+      const flyPromoBodyElement = document.getElementById('fly-promo-body');
+      flyPromoBodyElement.innerHTML = '';
+      const reverse = flyPromos.reverse().slice(0, 5);
+      reverse.forEach((flyPromo) => {
+          addNewFlyPromo(flyPromo, false)
+      })
+  }
+
+  const addNewFlyPromo = (flyPromo, initialized) => {
+      const flyPromoBodyElement = document.getElementById('fly-promo-body');
+      const row = document.createElement('tr')
+      row.setAttribute("class", "fly-promo");
+
+      Object.keys(tableColumns).forEach((column) => {
+          const rowData = document.createElement('td');
+
+          const content = tableColumns[column](flyPromo[column]);
+          rowData.appendChild(content)
+          row.appendChild(rowData);
+      })
+
+      if(initialized) {
+          flyPromoBodyElement.prepend(row)
+      } else {
+          flyPromoBodyElement.append(row)
+      }
+
+      setTimeout(() => row.classList.add('animate'), 500);
+      if (flyPromoBodyElement.children.length > 5) {
+          flyPromoBodyElement.removeChild(flyPromoBodyElement.children[5])
+      }
+  }
+
+  const initializeFlyPromos = () => {
+      stompClient.send('/app/init-fly-promos');
+  }
+
+  const initializeSocket = () => {
+      sockJs = new SockJS(socketPath);
+      stompClient = StompJs.Stomp.over(sockJs);
+      stompClient.connect({}, function(f) {
+          console.log('connected: ' + f)
+          stompClient.subscribe('/fly-promo', (message) => {
+              addNewFlyPromo(JSON.parse(message.body), true);
+          });
+          stompClient.subscribe('/fly-promo-list', (message) => {
+              showInitialFlyPromos(JSON.parse(message.body));
+          });
+          initializeFlyPromos();
+      })
+
+      clearInterval(retryConnect);
+
+      sockJs.onclose = () => {
+          stompClient.disconnect();
+          console.log('SockJs close try to Reconnect')
+          sockJs= null;
+          retryConnect = setInterval(() => {
+              initializeSocket()
+          }, 2000)
+      }
+  }
+
+  initializeSocket();
+
+</script>
+</body>
+</html>
